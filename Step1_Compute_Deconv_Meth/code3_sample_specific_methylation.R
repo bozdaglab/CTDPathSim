@@ -69,7 +69,7 @@ processMethExp<- function(sample){
       colnames(methylation)<-colnames(OV_Deconv_meth_gene)
       row.names(methylation)<-row.names(OV_Deconv_meth_gene)
       expression<-cbind(OV_Deconv_expression[,1]*proportions[1],OV_Deconv_expression[,2]*proportions[2],
-                        OV_Deconv_expression[,3]*proportions[3],OV_Deconv_expression[,3]*proportions[3])
+                        OV_Deconv_expression[,3]*proportions[3],OV_Deconv_expression[,4]*proportions[4])
       expression<-as.matrix(expression)
       colnames(expression)<-colnames(OV_Deconv_expression)
       row.names(expression)<-row.names(OV_Deconv_expression)
