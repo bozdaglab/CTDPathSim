@@ -9,3 +9,8 @@ We developed CTDPathSim, a computational pipeline to compute similarity scores b
  Step 3. Computing sample and cell line-specific biological pathways
  
  Step 4. Computing sample-cell line pathway activity-based similarity score
+ 
+ CTDPathSim are under construction to be published as a Bioconductor R package.
+ 
+The source codes of CTDPathSim are in "R" folder in master branch.
+Paper related supplemental materials are in "CTDPathSim_Supplemental" branch.
