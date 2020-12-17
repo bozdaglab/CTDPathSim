@@ -2,52 +2,22 @@
 title: "CTDPathSim"
 author: "Banabithi Bose, Matt Moravec,  Serdar Bozdag"
 date: "5/12/2020"
-output: rmarkdown::html_vignette
+output:      
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 3  
+        number_sections: true
+        theme: united 
 r_packages: rmarkdown
 vignette: > 
-    %\VignetteIndexEntry{mirDriver} 
-    %\VignetteEngine{knitr} 
+    %\VignetteIndexEntry{miRDriver_new} 
+    %\VignetteEngine{knitr::rmarkdown} 
     %\VignetteEncoding[UTF-8]{inputenc}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-## Table of Contents
-    * [Introduction](#Introduction)
-    * [Example Data Sets](#Example-Data-Sets)
-        * [Step 1 Data Sets](#Step-1-Data-Sets)
-            * [RunDeconvMethyl Data](#RunDeconvMethyl-Data)
-            * [PlotDeconvMehtyl Data](#PlotDeconvMehtyl-Data)
-            * [ProbeTogene450Fun Data](#ProbeTogene450Fun-Data)
-            * [ProbeTogene27Fun Data](#ProbeTogene27Fun-Data)
-            * [sampleMethylFun Data](#sampleMethylFun-Data)
-        * [Step 2 Data Sets](#Step-2-Data-Sets)
-            * [RunDeconvExpr Data](#RunDeconvExpr-Data)
-            * [sampleExprFun Data](#sampleExprFun-Data)
-        * [Step 3 Data Sets](#Step-3-Data-Sets)
-            * [GetSampleDE Data](#GetSampleDE-Data)
-            * [GetSampleDM Data](#GetSampleDM-Data)
-            * [GetPath Data](#GetPath-Data)
-        * [Step 4 Data Sets](#Step-4-Data-Sets)
-            * [FindSim Data](#FindSim-Data)
-    * [Using the Functions](#Using-the-Functions)
-        * [RunDeconvMethyl](#RunDeconvMethyl)
-        * [PlotDeconvMehtyl](#PlotDeconvMehtyl)
-        * [ProbeTogene450Fun](#ProbeTogene450Fun)
-        * [ProbeTogene27Fun](#ProbeTogene27Fun)
-        * [sampleMethylFun](#sampleMethylFun)   
-        * [RunDeconvExpr](#RunDeconvExpr)
-        * [sampleExprFun](#sampleExprFun)
-        * [GetSampleDE](#GetSampleDE)
-        * [GetSampleDM](#GetSampleDM)
-        * [GetPath](#GetPath)
-        * [FindSim](#FindSim)
-    * [Example Workflow](#Combined-Example-Workflow)
-    * [Summary](#Summary)
-    * [Acknowledgements](#Acknowledgements)
-
 
 ## <a id = "Introduction"></a> Introduction
 In the context of cancer research and drug development tumor derived cell lines are used to determine the response by the patient to the drug. However, the drug response to the cell line do not always accurately represent the patient’s response to the treatment. To bridge the gap between patient i.e. tumor sample-based and cell-line-based drug response studies, B. Bose et. al, 2020, proposed a computational pipeline called CTDPathSim that measures the biological pathway activity-based similarity between a tumor sample and cell lines using integrative multi-omics molecular profiles. CTDPathSim also accounts for the heterogeneity of bulk tumor profiles by deconvolving the effect of various cell types. The current project is to develop CTDPathSim tool in the form of a Bioconductor R package to be utilized by the scientific community. 
@@ -267,9 +237,9 @@ markers_ovr - A vector of the probe markers.
 
 ```{r}
 ##RUNNING THE FUNCTION WITH EXAMPLE DATASETS
-#load(system.file("extdata", "Example.Methylation.450k.rda", package = "CTDPathSim"))
-#load(system.file("extdata", "markers_ovr_450.rda", package = "CTDPathSim"))
-#stage1_result_ct<-RunDeconvMethyl(Example.Methylation=Example.Methylation.450K, markers_ovr=markers_ovr)
+load(system.file("extdata", "Example.Methylation.450k.rda", package = "CTDPathSim"))
+load(system.file("extdata", "markers_ovr_450.rda", package = "CTDPathSim"))
+stage1_result_ct<-RunDeconvMethyl(Example.Methylation=Example.Methylation.450K, markers_ovr=markers_ovr)
 ```
 
 
@@ -310,9 +280,9 @@ A_450 - A R dataframe object that includes the probes, the symbol and synonyms
 Deconv_methylation - A R dataframe with methylation values for each probe and cell type
 
 ```{r}
-#load(system.file("extdata", "Methylation.Probe.Annotation450.rda", package = "CTDPathSim"))
-#load(system.file("extdata", "Example.Deconv.Methylation.450k.50.rda", package = "CTDPathSim"))
-#Deconv_meth_gene<-ProbeTogene450Fun(A_450=A_450,Deconv_methylation=Deconv_methylation)
+load(system.file("extdata", "Methylation.Probe.Annotation450.rda", package = "CTDPathSim"))
+load(system.file("extdata", "Example.Deconv.Methylation.450k.50.rda", package = "CTDPathSim"))
+Deconv_meth_gene<-ProbeTogene450Fun(A_450=A_450,Deconv_methylation=Deconv_methylation)
 ```
 
 
@@ -324,7 +294,7 @@ A_27 - A R dataframe object that includes the probes, the symbol and synonyms
 Deconv_methylation - A R dataframe with methylation values for each probe and cell type
 
 ```{r}
-#Deconv_meth_gene<-ProbeTogene27Fun(A_27,Deconv_methylation)
+Deconv_meth_gene<-ProbeTogene27Fun(A_27,Deconv_methylation)
 ```
 
 ## <a id = "sampleMethylFun"> </a> sampleMethylFun
@@ -340,7 +310,7 @@ load(system.file("extdata", "Example.Deconv.methylation.450k.50.rda", package = 
 load(system.file("extdata", "Example.Deconv.proportions.450K.rda", package = "CTDPathSim"))
 
 ##SAMPLE SPECIFIC METHYLATION FILES ARE SAVED IN Sample_methylation FOLDER
-#sampleMethylFun(Deconv_meth_gene,Deconv_proportions)
+sampleMethylFun(Deconv_meth_gene,Deconv_proportions)
 ```
 
 
@@ -355,8 +325,8 @@ Deconv_proportions - A R dataframe object with the proportion of each cell type 
 ```{r}
 load(system.file("extdata", "Example.Expression.50.rda", package = "CTDPathSim"))
 load(system.file("extdata", "Example.Deconv.proportions.450K.rda", package = "CTDPathSim"))
-#Deconv_expression<-RunDeconvExpr(RnaSeq_fpkm_hgnc_data,Deconv_proportions)
-#save(Deconv_expression,file="~/Example.Deconv.expression.rda")
+Deconv_expression<-RunDeconvExpr(RnaSeq_fpkm_hgnc_data,Deconv_proportions)
+save(Deconv_expression,file="~/Example.Deconv.expression.rda")
 ```
 
 ## <a id = "sampleExprFun"> </a> sampleExprFun
@@ -371,7 +341,7 @@ Deconv_proportions - A R dataframe object with proportions of each cell type for
 load(system.file("extdata", "Example.Deconv.expression.rda", package = "CTDPathSim"))
 load(system.file("extdata", "Example.Deconv.proportions.450K.rda", package = "CTDPathSim"))
 ##SAMPLE SPECIFIC EXPRESSION FILES ARE SAVED IN Sample_expression FOLDER
-#sampleExprFun(Deconv_expression,Deconv_proportions)
+sampleExprFun(Deconv_expression,Deconv_proportions)
 ```
 
 ## <a id = "GetSampleDE"> </a> GetSampleDE
@@ -386,7 +356,7 @@ ncores - An integer value for the number of cores the use if the code is run in 
 ```{r}
 ##RUNNING THE FUNCTION
 load(system.file("extdata", "Example.Expression.50.rda", package = "CTDPathSim"))
-#GetSampleDE(RnaSeq_fpkm_hgnc_data=RnaSeq_fpkm_hgnc_data,parallel=FALSE,ncores=5)
+GetSampleDE(RnaSeq_fpkm_hgnc_data=RnaSeq_fpkm_hgnc_data,parallel=FALSE,ncores=5)
 ```
 
 ## <a id = "GetSampleDM"> </a> GetSampleDM
@@ -400,7 +370,7 @@ ncores - An integer value for the number of cores the use if the code is run in 
 
 ```{r}
 load(system.file("extdata", "Example.gene.centric.methylation.50.rda", package = "CTDPathSim"))
-#GetSampleDM(All_methylation=All_methylation,parallel=FALSE,ncores=5)
+GetSampleDM(All_methylation=All_methylation,parallel=FALSE,ncores=5)
 ```
 
 ## <a id = "GetPath"> </a> GetPath
@@ -413,7 +383,7 @@ pat_de_genes - A R dataframe object with the patients DE genes
 ```{r}
 load(system.file("extdata", "Example.CancerGeneList.rda", package = "CTDPathSim"))
 load(system.file("extdata", "Example.patient1.de.genes.rda", package = "CTDPathSim"))
-#x<-GetPath(CancerGeneList,pat_de_genes)
+x<-GetPath(CancerGeneList,pat_de_genes)
 ```
 
 ## <a id = "FindSim"> </a> FindSim

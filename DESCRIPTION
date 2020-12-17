@@ -19,7 +19,7 @@ Imports: grDevices, utils, stringr, dplyr, reshape, reshape2, tidyr, data.table,
          parallel, matrixStats, RColorBrewer, gplots, xlsx, pathfindR, sqldf, plyr, 
          statmod, readr, Matrix, matrixcalc, pathfindR.data, gsubfn, stats, clue, gtools,
          quadprog
-Depends: R (>= 4.0)
+Depends: R (>= 3.6)
 VignetteBuilder: knitr
 Suggests: BiocStyle, knitr, rmarkdown
 biocViews: GeneRegulation, GO, DifferentialExpression, DifferentialMethylation, Network, GeneExpression, Pathways, Reactome
